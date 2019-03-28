@@ -1,0 +1,47 @@
+<h1>ToDo List</h1>
+
+<button mat-raised-button (click)="loadTodos()">Load ToDos</button>
+
+<br>
+<table width="20%">
+  <tr>
+    <td>
+      <mat-checkbox (change)="showUndoneChanged($event)"> Show Undone  </mat-checkbox>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label>Show Person:</mat-label>
+        <mat-select (selectionChange)="showSpecificPerson($event)">
+          <mat-option value="none">No Filter</mat-option>
+          <mat-option *ngFor="let person of people" [value]="person.name">
+            {{ person.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </tr>
+</table>
+<br>
+
+<button mat-raised-button (click)="openAdd()">Add ToDo</button>
+
+<br><br>
+<div *ngFor="let todo of todos">
+  <mat-card>
+    <mat-card-title>{{ todo.description }}</mat-card-title>
+    <mat-card-content><div *ngIf="todo.assignedTo != null">Assigned To: {{ todo.assignedTo }}</div></mat-card-content>
+    <mat-card-content><div *ngIf="todo.done == true">Done: true</div></mat-card-content>
+    <mat-card-content><div *ngIf="todo.done != true">Done: false</div></mat-card-content>
+    <table width="70%">
+      <tr>
+        <td>
+            <button mat-raised-button (click)="openEdit(todo.id)">Edit ToDo</button>
+        </td>
+        <td>
+            <button mat-raised-button (click)="deleteTodo(todo.id)">Delete ToDo</button>
+        </td>
+      </tr>
+    </table>
+  </mat-card>
+  <br>
+</div>
